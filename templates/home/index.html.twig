@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'acceuil{% endblock %}
+{% block body %}
+
+<h1 class="text-light-emphasis">Page d'acceuil</h1>
+ <table class="table  w-50 mx-auto">
+   
+        <thead>
+     
+            <tr>
+                <th>Id</th>
+                <th>titre</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Categorie</th>
+                 <th>Image</th>
+                <th>Reference</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+      
+        {% for product in products %}
+            <tr>
+         
+                <td>{{ product.id }}</td>
+                <td>{{ product.title }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.category.name }}</td>
+                 <td><img src="{{asset('uploads/image/' ~ product.image)}}" alt=""style='width:150px'></td>
+                <td>{{ product.reference }}</td>
+              
+             
+            </tr>
+       
+        {% endfor %}
+        </tbody>
+    </table>
+
+  
+{% endblock %}
+

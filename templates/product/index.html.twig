@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}product index
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-light-emphasis text-center">produit index</h1>
+
+	<div class='m-2'>
+	{{form_start(form)}}
+	{{form_row(form)}}
+	<button type="submit">recherche</button>
+	{{form_end(form)}}
+	</div>
+	
+	<div class= "d-flex justify-content-center ">
+	<a href="{{ path('app_product_index') }}" class='btn btn-warning m-2 "'>principal</a>
+	
+	{% for category in categories %}
+		<a href="{{path('app_product_index',{'id':category.id})}}" class='btn btn-warning m-2'>{{category.name}}</a>
+	{% endfor %}
+	</div>
+	<table class="table  w-50 mx-auto">
+
+		<thead>
+
+			<tr>
+				<th>Id</th>
+				<th>titre</th>
+				<th>Description</th>
+				<th>Prix</th>
+				<th>Categorie</th>
+				<th>Image</th>
+				<th>Reference</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			{% for product in products %}
+				<tr>
+
+					<td>{{ product.id }}</td>
+					<td>{{ product.title }}</td>
+					<td>{{ product.description }}</td>
+					<td>{{ product.price }}</td>
+					<td>{{ product.category.name }}</td>
+					<td><img src="{{asset('uploads/image/' ~ product.image)}}" alt="" style='width:150px'></td>
+					<td>{{ product.reference }}</td>
+
+					<td>
+						<a href="{{ path('app_product_show', {'id': product.id}) }}"class="btn btn-success">show</a>
+						<a href="{{ path('app_product_edit', {'id': product.id}) }}"class="btn btn-info">edit</a>
+						<a href="{{ path('app_cart_increase', {'id': product.id}) }}"class="btn btn-primary">add to cart</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<div class="mx-auto" style="width:200px">
+		<a href="{{ path('app_product_new') }}" class="btn btn-success">Create new</a>
+	</div>
+{% endblock %}
